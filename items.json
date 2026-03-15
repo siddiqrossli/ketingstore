@@ -50,5 +50,18 @@
     "badge1": "Mall",
     "badge2": "Hot Sale",
     "order": 4
-  }
+  },
+  {
+  "title": "Portable USB Table Fan Mini Rechargeable",
+  "price": 19.9,
+  "discount": "-40%",
+  "promo": "Tap to view latest price",
+  "rating": 4.8,
+  "sold": "5k+ sold",
+  "image": "SHOP_ITEM_5.jpg",
+  "link": "https://your-shopee-item-link-5",
+  "badge1": "Mall",
+  "badge2": "Hot Pick",
+  "order": 5
+}
 ]
