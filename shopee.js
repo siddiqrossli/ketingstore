@@ -41,6 +41,36 @@ function updatePriceArrow() {
     : "fa-solid fa-sort-down";
 }
 
+function renderStars(rating) {
+  const numericRating = Number(rating);
+
+  if (Number.isNaN(numericRating) || numericRating <= 0) {
+    return `
+      <span class="stars">
+        <i class="fa-regular fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+      </span>
+    `;
+  }
+
+  const estimatedStars = Math.round(numericRating);
+  let starsHtml = `<span class="stars">`;
+
+  for (let i = 1; i <= 5; i++) {
+    if (i <= estimatedStars) {
+      starsHtml += `<i class="fa-solid fa-star"></i>`;
+    } else {
+      starsHtml += `<i class="fa-regular fa-star"></i>`;
+    }
+  }
+
+  starsHtml += `</span>`;
+  return starsHtml;
+}
+
 function renderProducts(items) {
   const container = document.getElementById("products");
   container.innerHTML = "";
@@ -89,8 +119,13 @@ function renderProducts(items) {
       : "";
 
     const ratingHtml = item.rating
-      ? `<div class="rating">★ ${escapeHtml(item.rating)}</div>`
-      : `<div class="rating">★ -</div>`;
+      ? `
+        <div class="rating">
+          ${renderStars(item.rating)}
+          <span class="rating-number">${escapeHtml(item.rating)}</span>
+        </div>
+      `
+      : `<div class="rating">-</div>`;
 
     const soldHtml = item.sold
       ? `<div class="sold">${escapeHtml(item.sold)}</div>`
