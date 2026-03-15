@@ -3,51 +3,104 @@ let currentSort = "relevance";
 let currentSearch = "";
 
 function formatPrice(price) {
-  return `RM${price.toFixed(2)}`;
+  const numericPrice = Number(price);
+  if (Number.isNaN(numericPrice)) return "";
+  return `RM${numericPrice.toFixed(2)}`;
 }
 
-function getSoldNumber(soldText) {
-  const text = soldText.toLowerCase().replace(" sold", "").trim();
+function getSoldNumber(soldText = "") {
+  const text = String(soldText).toLowerCase().replace(" sold", "").trim();
+
   if (text.includes("k+")) return parseFloat(text) * 1000;
   if (text.includes("m+")) return parseFloat(text) * 1000000;
+
   return parseFloat(text) || 0;
+}
+
+function escapeHtml(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 function renderProducts(items) {
   const container = document.getElementById("products");
   container.innerHTML = "";
 
-  if (items.length === 0) {
+  if (!items || items.length === 0) {
     container.innerHTML = `<div class="empty-state">No products found.</div>`;
     return;
   }
 
-  items.forEach(item => {
+  items.forEach((item) => {
     const card = document.createElement("a");
     card.className = "product-card";
-    card.href = item.link;
+    card.href = item.link || "#";
     card.target = "_blank";
+    card.rel = "noopener noreferrer";
+
+    const badge1Html = item.badge1
+      ? `<span class="badge red">${escapeHtml(item.badge1)}</span>`
+      : "";
+
+    const badge2Html = item.badge2
+      ? `<span class="badge orange">${escapeHtml(item.badge2)}</span>`
+      : "";
+
+    const badgeRowHtml =
+      badge1Html || badge2Html
+        ? `<div class="badge-row">${badge1Html}${badge2Html}</div>`
+        : "";
+
+    const priceHtml =
+      item.price !== undefined && item.price !== null && item.price !== ""
+        ? `<div class="price">${formatPrice(item.price)}</div>`
+        : "";
+
+    const discountHtml = item.discount
+      ? `<div class="discount">${escapeHtml(item.discount)}</div>`
+      : "";
+
+    const priceRowHtml =
+      priceHtml || discountHtml
+        ? `<div class="price-row">${priceHtml}${discountHtml}</div>`
+        : "";
+
+    const promoHtml = item.promo
+      ? `<div class="promo">${escapeHtml(item.promo)}</div>`
+      : "";
+
+    const ratingHtml = item.rating
+      ? `<div class="rating">★ ${escapeHtml(item.rating)}</div>`
+      : `<div class="rating">★ -</div>`;
+
+    const soldHtml = item.sold
+      ? `<div class="sold">${escapeHtml(item.sold)}</div>`
+      : `<div class="sold">-</div>`;
+
     card.innerHTML = `
       <div class="product-image-wrap">
-        <img src="${item.image}" alt="${item.title}" class="product-image">
+        <img
+          src="${escapeHtml(item.image || "")}"
+          alt="${escapeHtml(item.title || "Product image")}"
+          class="product-image"
+        >
       </div>
       <div class="product-body">
-        <div class="badge-row">
-          <span class="badge red">${item.badge1}</span>
-          <span class="badge orange">${item.badge2}</span>
-        </div>
-        <div class="product-title">${item.title}</div>
-        <div class="price-row">
-          <div class="price">${formatPrice(item.price)}</div>
-          <div class="discount">${item.discount}</div>
-        </div>
-        <div class="promo">${item.promo}</div>
+        ${badgeRowHtml}
+        <div class="product-title">${escapeHtml(item.title || "Untitled product")}</div>
+        ${priceRowHtml}
+        ${promoHtml}
         <div class="meta-row">
-          <div class="rating">★ ${item.rating}</div>
-          <div class="sold">${item.sold}</div>
+          ${ratingHtml}
+          ${soldHtml}
         </div>
       </div>
     `;
+
     container.appendChild(card);
   });
 }
@@ -56,20 +109,20 @@ function applyFiltersAndSort() {
   let filtered = [...productsData];
 
   if (currentSearch.trim()) {
-    const keyword = currentSearch.toLowerCase();
-    filtered = filtered.filter(item =>
-      item.title.toLowerCase().includes(keyword)
+    const keyword = currentSearch.toLowerCase().trim();
+    filtered = filtered.filter((item) =>
+      String(item.title || "").toLowerCase().includes(keyword)
     );
   }
 
   if (currentSort === "price") {
-    filtered.sort((a, b) => a.price - b.price);
+    filtered.sort((a, b) => Number(a.price || 0) - Number(b.price || 0));
   } else if (currentSort === "topSales") {
     filtered.sort((a, b) => getSoldNumber(b.sold) - getSoldNumber(a.sold));
   } else if (currentSort === "latest") {
-    filtered.sort((a, b) => b.order - a.order);
+    filtered.sort((a, b) => Number(b.order || 0) - Number(a.order || 0));
   } else {
-    filtered.sort((a, b) => a.order - b.order);
+    filtered.sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
   }
 
   renderProducts(filtered);
@@ -78,31 +131,38 @@ function applyFiltersAndSort() {
 async function loadProducts() {
   try {
     const response = await fetch("items.json");
+
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+
     productsData = await response.json();
     applyFiltersAndSort();
   } catch (error) {
     document.getElementById("products").innerHTML =
       "<div class='empty-state'>Failed to load products.</div>";
-    console.error(error);
+    console.error("Error loading products:", error);
   }
 }
 
-document.querySelectorAll(".tab").forEach(tab => {
-  tab.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
-    currentSort = tab.dataset.sort;
-    applyFiltersAndSort();
-  });
-});
-
 document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      currentSort = tab.dataset.sort;
+      applyFiltersAndSort();
+    });
+  });
+
   const searchInput = document.getElementById("searchInput");
 
-  searchInput.addEventListener("input", (e) => {
-    currentSearch = e.target.value;
-    applyFiltersAndSort();
-  });
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      currentSearch = e.target.value;
+      applyFiltersAndSort();
+    });
+  }
 
   loadProducts();
 });
