@@ -1,13 +1,26 @@
 let productsData = [];
 let currentSort = "relevance";
+let currentSearch = "";
 
 function formatPrice(price) {
   return `RM${price.toFixed(2)}`;
 }
 
+function getSoldNumber(soldText) {
+  const text = soldText.toLowerCase().replace(" sold", "").trim();
+  if (text.includes("k+")) return parseFloat(text) * 1000;
+  if (text.includes("m+")) return parseFloat(text) * 1000000;
+  return parseFloat(text) || 0;
+}
+
 function renderProducts(items) {
   const container = document.getElementById("products");
   container.innerHTML = "";
+
+  if (items.length === 0) {
+    container.innerHTML = `<div class="empty-state">No products found.</div>`;
+    return;
+  }
 
   items.forEach(item => {
     const card = document.createElement("a");
@@ -39,38 +52,37 @@ function renderProducts(items) {
   });
 }
 
-function sortProducts(sortType) {
-  let sorted = [...productsData];
+function applyFiltersAndSort() {
+  let filtered = [...productsData];
 
-  if (sortType === "price") {
-    sorted.sort((a, b) => a.price - b.price);
-  } else if (sortType === "topSales") {
-    sorted.sort((a, b) => {
-      const getSoldNumber = (soldText) => {
-        const text = soldText.toLowerCase().replace(" sold", "");
-        if (text.includes("k+")) return parseFloat(text) * 1000;
-        if (text.includes("m+")) return parseFloat(text) * 1000000;
-        return parseFloat(text) || 0;
-      };
-      return getSoldNumber(b.sold) - getSoldNumber(a.sold);
-    });
-  } else if (sortType === "latest") {
-    sorted.sort((a, b) => b.order - a.order);
-  } else {
-    sorted.sort((a, b) => a.order - b.order);
+  if (currentSearch.trim()) {
+    const keyword = currentSearch.toLowerCase();
+    filtered = filtered.filter(item =>
+      item.title.toLowerCase().includes(keyword)
+    );
   }
 
-  renderProducts(sorted);
+  if (currentSort === "price") {
+    filtered.sort((a, b) => a.price - b.price);
+  } else if (currentSort === "topSales") {
+    filtered.sort((a, b) => getSoldNumber(b.sold) - getSoldNumber(a.sold));
+  } else if (currentSort === "latest") {
+    filtered.sort((a, b) => b.order - a.order);
+  } else {
+    filtered.sort((a, b) => a.order - b.order);
+  }
+
+  renderProducts(filtered);
 }
 
 async function loadProducts() {
   try {
     const response = await fetch("items.json");
     productsData = await response.json();
-    sortProducts(currentSort);
+    applyFiltersAndSort();
   } catch (error) {
     document.getElementById("products").innerHTML =
-      "<p style='padding:20px; color:#ee4d2d;'>Failed to load products.</p>";
+      "<div class='empty-state'>Failed to load products.</div>";
     console.error(error);
   }
 }
@@ -80,8 +92,17 @@ document.querySelectorAll(".tab").forEach(tab => {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     tab.classList.add("active");
     currentSort = tab.dataset.sort;
-    sortProducts(currentSort);
+    applyFiltersAndSort();
   });
 });
 
-loadProducts();
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("searchInput");
+
+  searchInput.addEventListener("input", (e) => {
+    currentSearch = e.target.value;
+    applyFiltersAndSort();
+  });
+
+  loadProducts();
+});
