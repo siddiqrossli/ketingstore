@@ -1,0 +1,54 @@
+[
+  {
+    "title": "Wireless Bluetooth Mouse Silent Click Rechargeable",
+    "price": 22.8,
+    "discount": "-63%",
+    "promo": "Special deal today",
+    "rating": 5.0,
+    "sold": "20k+ sold",
+    "image": "SHOP_ITEM_1.jpg",
+    "link": "https://your-shopee-item-link-1",
+    "badge1": "Fulfilled",
+    "badge2": "Best Pick",
+    "order": 1
+  },
+  {
+    "title": "Aesthetic Desk Lamp Minimal Setup Room Decoration",
+    "price": 20.22,
+    "discount": "-69%",
+    "promo": "Limited-time promo",
+    "rating": 4.9,
+    "sold": "2k+ sold",
+    "image": "SHOP_ITEM_2.jpg",
+    "link": "https://your-shopee-item-link-2",
+    "badge1": "Mall",
+    "badge2": "Fast Ship",
+    "order": 2
+  },
+  {
+    "title": "Portable Stand Holder for Tablet iPad Phone Adjustable",
+    "price": 26.9,
+    "discount": "-72%",
+    "promo": "Recommended item",
+    "rating": 5.0,
+    "sold": "40k+ sold",
+    "image": "SHOP_ITEM_3.jpg",
+    "link": "https://your-shopee-item-link-3",
+    "badge1": "Fulfilled",
+    "badge2": "Top Rated",
+    "order": 3
+  },
+  {
+    "title": "Mini Bluetooth Speaker Wireless Compact Cute Portable",
+    "price": 23.5,
+    "discount": "-67%",
+    "promo": "Popular now",
+    "rating": 4.9,
+    "sold": "10k+ sold",
+    "image": "SHOP_ITEM_4.jpg",
+    "link": "https://your-shopee-item-link-4",
+    "badge1": "Mall",
+    "badge2": "Hot Sale",
+    "order": 4
+  }
+]
