@@ -4,9 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shopee Cart | Keting Store</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
   <style>
     * {
       box-sizing: border-box;
@@ -33,7 +42,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255,255,255,0.94);
+      background: rgba(255,255,255,0.96);
       backdrop-filter: blur(8px);
       padding: 14px 14px 10px;
       box-shadow: 0 2px 12px rgba(0,0,0,0.05);
@@ -91,12 +100,19 @@
       border-bottom: 3px solid transparent;
       cursor: pointer;
       user-select: none;
+      transition: color 0.2s ease, border-color 0.2s ease;
     }
 
     .tab.active {
       color: #ee4d2d;
       border-bottom-color: #ee4d2d;
       font-weight: 600;
+    }
+
+    .tab i {
+      margin-left: 6px;
+      font-size: 14px;
+      vertical-align: middle;
     }
 
     .products {
@@ -274,7 +290,9 @@
         <div class="tab active" data-sort="relevance">Relevance</div>
         <div class="tab" data-sort="latest">Latest</div>
         <div class="tab" data-sort="topSales">Top Sales</div>
-        <div class="tab" data-sort="price">Price</div>
+        <div class="tab" data-sort="price" id="priceTab">
+          Price <i id="priceArrow" class="fa-solid fa-sort"></i>
+        </div>
       </div>
     </div>
 
