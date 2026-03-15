@@ -1,6 +1,7 @@
 let productsData = [];
 let currentSort = "relevance";
 let currentSearch = "";
+let priceAscending = true;
 
 function formatPrice(price) {
   const numericPrice = Number(price);
@@ -24,6 +25,20 @@ function escapeHtml(value = "") {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function updatePriceArrow() {
+  const arrow = document.getElementById("priceArrow");
+  if (!arrow) return;
+
+  if (currentSort !== "price") {
+    arrow.className = "fa-solid fa-sort";
+    return;
+  }
+
+  arrow.className = priceAscending
+    ? "fa-solid fa-sort-up"
+    : "fa-solid fa-sort-down";
 }
 
 function renderProducts(items) {
@@ -116,7 +131,11 @@ function applyFiltersAndSort() {
   }
 
   if (currentSort === "price") {
-    filtered.sort((a, b) => Number(a.price || 0) - Number(b.price || 0));
+    if (priceAscending) {
+      filtered.sort((a, b) => Number(a.price || 0) - Number(b.price || 0));
+    } else {
+      filtered.sort((a, b) => Number(b.price || 0) - Number(a.price || 0));
+    }
   } else if (currentSort === "topSales") {
     filtered.sort((a, b) => getSoldNumber(b.sold) - getSoldNumber(a.sold));
   } else if (currentSort === "latest") {
@@ -137,6 +156,7 @@ async function loadProducts() {
     }
 
     productsData = await response.json();
+    updatePriceArrow();
     applyFiltersAndSort();
   } catch (error) {
     document.getElementById("products").innerHTML =
@@ -148,9 +168,19 @@ async function loadProducts() {
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".tab").forEach((tab) => {
     tab.addEventListener("click", () => {
+      if (tab.dataset.sort === "price") {
+        if (currentSort === "price") {
+          priceAscending = !priceAscending;
+        } else {
+          priceAscending = true;
+        }
+      }
+
       document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
       tab.classList.add("active");
       currentSort = tab.dataset.sort;
+
+      updatePriceArrow();
       applyFiltersAndSort();
     });
   });
