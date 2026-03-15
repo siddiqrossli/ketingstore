@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopee Cart | Keting Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)),
+        url('GITHUB_BACKGROUND.jpeg') center/cover no-repeat;
+      min-height: 100vh;
+      padding: 20px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(88, 99, 75, 0.78);
+      border-radius: 30px;
+      padding: 28px 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+
+    .top {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .top img {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+
+    p {
+      color: rgba(255,255,255,0.88);
+      font-size: 0.95rem;
+    }
+
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .item-btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      background: rgba(255,255,255,0.94);
+      color: #222;
+      padding: 15px 18px;
+      border-radius: 999px;
+      font-weight: 500;
+      transition: 0.2s ease;
+    }
+
+    .item-btn:hover {
+      transform: translateY(-2px);
+      background: white;
+    }
+
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 12px 18px;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top">
+      <img src="PROFILE_PICTURE.png" alt="Profile Picture">
+      <h1>Shopee Cart</h1>
+      <p>Tap any item below to open it directly.</p>
+    </div>
+
+    <div class="item-list">
+      <a class="item-btn" href="https://your-shopee-item-link-1" target="_blank">Item 1</a>
+      <a class="item-btn" href="https://your-shopee-item-link-2" target="_blank">Item 2</a>
+      <a class="item-btn" href="https://your-shopee-item-link-3" target="_blank">Item 3</a>
+      <a class="item-btn" href="https://your-shopee-item-link-4" target="_blank">Item 4</a>
+    </div>
+
+    <a class="back-btn" href="index.html">← Back to Main Page</a>
+  </div>
+</body>
+</html>
