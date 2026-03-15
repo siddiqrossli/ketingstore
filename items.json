@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Sampul Raya Cute 2026",
+    "price": 1.98,
+    "discount": "",
+    "promo": "25 Design Available",
+    "rating": 5,
+    "sold": "60k+ sold",
+    "image": "images/shopee_product/SAMPUL-RAYA-CUTE.webp",
+    "link": "https://s.shopee.com.my/50UMEi6yFU",
+    "order": 1
+  },
+  {
+    "title": "Premium Sampul Raya - Setulus Ikhlas (5pcs)",
+    "price": 3.5,
+    "discount": "",
+    "promo": "Exclusive Designs",
+    "rating": 5,
+    "sold": "40k+ sold",
+    "image": "images/shopee_product/SETULUS-IKHLAS.webp",
+    "link": "https://s.shopee.com.my/6VJA49XTRb",
+    "order": 2
+  },
+  {
+    "title": "Rirana Parfume Coconut Nanas 50ML EDP UNISEX niche perfume",
+    "price": 110,
+    "discount": "",
+    "rating": 5,
+    "sold": "9k+ sold",
+    "promo": "Preffered",
+    "image": "images/shopee_product/RIRANA-COCONUT-NANAS.webp",
+    "link": "https://s.shopee.com.my/8ph4tQDRyy",
+    "badge1": "",
+    "badge2": "",
+    "order": 3
+  }
+]
