@@ -6,10 +6,7 @@
   <title>Shopee Cart | Keting Store</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     * {
       box-sizing: border-box;
@@ -19,101 +16,290 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background:
-        linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)),
-        url('GITHUB_BACKGROUND.jpeg') center/cover no-repeat;
-      min-height: 100vh;
-      padding: 20px;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(88, 99, 75, 0.78);
-      border-radius: 30px;
-      padding: 28px 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    }
-
-    .top {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .top img {
-      width: 86px;
-      height: 86px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 6px;
-    }
-
-    p {
-      color: rgba(255,255,255,0.88);
-      font-size: 0.95rem;
-    }
-
-    .item-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 24px;
-    }
-
-    .item-btn {
-      display: block;
-      text-align: center;
-      text-decoration: none;
-      background: rgba(255,255,255,0.94);
+      background: #f5f5f5;
       color: #222;
-      padding: 15px 18px;
-      border-radius: 999px;
-      font-weight: 500;
-      transition: 0.2s ease;
     }
 
-    .item-btn:hover {
-      transform: translateY(-2px);
-      background: white;
+    .page {
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #f5f5f5;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #fff;
+      padding: 14px 14px 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .search-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .back-btn {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
       text-decoration: none;
-      color: white;
-      border: 1px solid rgba(255,255,255,0.4);
-      padding: 12px 18px;
-      border-radius: 999px;
+      color: #ee4d2d;
+      font-size: 1.6rem;
+      line-height: 1;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .search-box {
+      flex: 1;
+      border: 2px solid #ee4d2d;
+      border-radius: 14px;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      background: #fff;
+    }
+
+    .search-text {
+      color: #222;
+      font-size: 0.98rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .camera-icon {
+      font-size: 1.3rem;
+      color: #888;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: #fff;
+      margin-top: 10px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .tab {
+      text-align: center;
+      font-size: 0.92rem;
+      color: #666;
+      padding: 12px 4px 10px;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .tab.active {
+      color: #ee4d2d;
+      border-bottom-color: #ee4d2d;
+      font-weight: 600;
+    }
+
+    .chips {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 12px 14px;
+      background: #f5f5f5;
+      scrollbar-width: none;
+    }
+
+    .chips::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chip {
+      white-space: nowrap;
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.86rem;
+      color: #666;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 0 14px 20px;
+    }
+
+    .product-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.10);
+    }
+
+    .product-image-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-body {
+      padding: 10px 10px 12px;
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .badge {
+      font-size: 0.65rem;
+      line-height: 1;
+      padding: 4px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .badge.red {
+      background: #ee4d2d;
+      color: #fff;
+    }
+
+    .badge.orange {
+      background: #fff1eb;
+      color: #ee4d2d;
+      border: 1px solid #ffd4c8;
+    }
+
+    .product-title {
+      font-size: 0.95rem;
+      line-height: 1.35;
+      height: 2.6em;
+      overflow: hidden;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .price {
+      font-size: 1.1rem;
+      color: #ee4d2d;
+      font-weight: 600;
+    }
+
+    .discount {
+      font-size: 0.8rem;
+      color: #ee4d2d;
+      background: #fff1eb;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .promo {
+      display: inline-block;
+      font-size: 0.72rem;
+      color: #ee4d2d;
+      background: #fff1eb;
+      border: 1px solid #ffd4c8;
+      padding: 4px 6px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: #777;
+    }
+
+    .rating {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #f5a623;
+      font-weight: 600;
+    }
+
+    .sold {
+      color: #666;
+    }
+
+    @media (max-width: 380px) {
+      .product-title {
+        font-size: 0.88rem;
+      }
+
+      .price {
+        font-size: 1rem;
+      }
+
+      .tab {
+        font-size: 0.84rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="top">
-      <img src="PROFILE_PICTURE.png" alt="Profile Picture">
-      <h1>Shopee Cart</h1>
-      <p>Tap any item below to open it directly.</p>
+  <div class="page">
+    <div class="topbar">
+      <div class="search-row">
+        <a href="index.html" class="back-btn">←</a>
+        <div class="search-box">
+          <div class="search-text">affiliate picks</div>
+          <div class="camera-icon">📷</div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <div class="tab active" data-sort="relevance">Relevance</div>
+        <div class="tab" data-sort="latest">Latest</div>
+        <div class="tab" data-sort="topSales">Top Sales</div>
+        <div class="tab" data-sort="price">Price</div>
+      </div>
     </div>
 
-    <div class="item-list">
-      <a class="item-btn" href="https://your-shopee-item-link-1" target="_blank">Item 1</a>
-      <a class="item-btn" href="https://your-shopee-item-link-2" target="_blank">Item 2</a>
-      <a class="item-btn" href="https://your-shopee-item-link-3" target="_blank">Item 3</a>
-      <a class="item-btn" href="https://your-shopee-item-link-4" target="_blank">Item 4</a>
+    <div class="chips">
+      <div class="chip">Affiliate Picks</div>
+      <div class="chip">Best Deals</div>
+      <div class="chip">Trending Items</div>
+      <div class="chip">My Favorites</div>
     </div>
 
-    <a class="back-btn" href="index.html">← Back to Main Page</a>
+    <div class="products" id="products"></div>
   </div>
+
+  <script src="shopee.js"></script>
 </body>
 </html>
