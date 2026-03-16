@@ -71,7 +71,7 @@
     .search-box {
       flex: 1;
       border: 2px solid #ee4d2d;
-      border-radius: 14px;
+      border-radius: 12px;
       min-height: 52px;
       display: flex;
       align-items: center;
@@ -132,7 +132,7 @@
       text-decoration: none;
       color: inherit;
       background: #fff;
-      border-radius: 14px;
+      border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 3px 12px rgba(0,0,0,0.06);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -234,11 +234,12 @@
 
     .meta-row {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
       font-size: 0.78rem;
       color: #777;
+      flex-wrap: nowrap;
     }
 
     .rating {
@@ -247,13 +248,16 @@
       gap: 4px;
       color: #f5a623;
       font-weight: 600;
-      flex-wrap: wrap;
+      white-space: nowrap;
+      flex: 1;
+      min-width: 0;
     }
 
     .rating .stars {
       display: inline-flex;
       align-items: center;
       gap: 1px;
+      flex-shrink: 0;
     }
 
     .rating .stars i {
@@ -265,10 +269,13 @@
       color: #777;
       font-size: 0.76rem;
       margin-left: 2px;
+      flex-shrink: 0;
     }
 
     .sold {
       color: #666;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .empty-state {
@@ -290,6 +297,23 @@
 
       .tab {
         font-size: 0.84rem;
+      }
+
+      .meta-row {
+        gap: 6px;
+        font-size: 0.74rem;
+      }
+
+      .rating .stars i {
+        font-size: 11px;
+      }
+
+      .rating .rating-number {
+        font-size: 0.72rem;
+      }
+
+      .sold {
+        font-size: 0.72rem;
       }
     }
   </style>
