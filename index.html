@@ -259,17 +259,17 @@
 
       <div class="links">
         <a class="link-btn" href="shopee.html">Shopee Cart</a>
-        <a class="link-btn" href="https://www.tiktok.com/@ketinggood?_r=1&_t=ZS-94iI3j9frFt" target="_blank">TikTok</a>
+        <a class="link-btn tiktok-link" href="https://www.tiktok.com/@ketinggood" target="_blank" rel="noopener noreferrer">TikTok</a>
       </div>
 
       <div class="featured-label">Featured preloved item</div>
 
-      <a class="featured-card" href="https://carousell.app.link/EAMzm3C2w1b" target="_blank">
+      <a class="featured-card" href="https://carousell.app.link/EAMzm3C2w1b" target="_blank" rel="noopener noreferrer">
         <img src="images/profile/PRELOVED_ITEM.png" alt="Featured preloved item">
       </a>
 
       <div class="socials">
-        <a href="https://www.tiktok.com/@ketinggood?_r=1&_t=ZS-94iI3j9frFt" target="_blank" aria-label="TikTok">
+        <a href="https://www.tiktok.com/@ketinggood" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="tiktok-link">
           <i class="fa-brands fa-tiktok"></i>
         </a>
 
@@ -277,15 +277,26 @@
           <i class="fa-solid fa-bag-shopping"></i>
         </a>
 
-        <a href="https://www.threads.com/@ketingparkerrr?igshid=NTc4MTIwNjQ2YQ==" target="_blank" aria-label="Threads">
+        <a href="https://www.threads.com/@ketingparkerrr?igshid=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener noreferrer" aria-label="Threads">
           <i class="fa-solid fa-at"></i>
         </a>
 
-        <a href="https://carousell.app.link/EAMzm3C2w1b" target="_blank" aria-label="Carousell">
+        <a href="https://carousell.app.link/EAMzm3C2w1b" target="_blank" rel="noopener noreferrer" aria-label="Carousell">
           <i class="fa-regular fa-heart"></i>
         </a>
       </div>
     </div>
   </div>
+
+  <script>
+    const ua = navigator.userAgent || "";
+    const isTikTokBrowser = /TikTok/i.test(ua);
+
+    if (isTikTokBrowser) {
+      document.querySelectorAll(".tiktok-link").forEach((link) => {
+        link.style.display = "none";
+      });
+    }
+  </script>
 </body>
 </html>
